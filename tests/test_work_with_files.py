@@ -11,7 +11,7 @@ from set_path import ZIP_FILE
 
 def test_check_xlsx_in_archive():
     file_name = 'FRS.xlsx'
-    with ZipFile(ZIP_FILE, 'r') as zip_file:
+    with ZipFile(ZIP_FILE) as zip_file:
         with zip_file.open(file_name) as file:
             workbook = load_workbook(file)
             title_list = workbook.sheetnames
@@ -27,7 +27,7 @@ def test_check_xlsx_in_archive():
 
 def test_check_pdf_in_archive():
     file_name = 'Fluent_Python_2nd_Edition_Luciano_Ramalho.pdf'
-    with ZipFile(ZIP_FILE, 'r') as zip_file:
+    with ZipFile(ZIP_FILE) as zip_file:
         with zip_file.open(file_name) as file:
             reader = PdfReader(file)
 
@@ -38,7 +38,7 @@ def test_check_pdf_in_archive():
 
 def test_check_csv_in_archive_using_csv_module():
     file_name = 'Masses_ISS.csv'
-    with ZipFile(ZIP_FILE, 'r') as zip_file:
+    with ZipFile(ZIP_FILE) as zip_file:
         with zip_file.open(file_name) as file:
             csv_file = file.read().decode(encoding='utf-8')
             content = list(csv.reader(csv_file.splitlines(), delimiter=';'))
@@ -50,7 +50,7 @@ def test_check_csv_in_archive_using_csv_module():
 
 def test_check_csv_in_archive_using_csv_module_and_diff_way_to_read():
     file_name = 'Mass_PCSS.csv'
-    with ZipFile(ZIP_FILE, 'r') as zip_file:
+    with ZipFile(ZIP_FILE) as zip_file:
         with zip_file.open(file_name) as file:
             content = list(csv.reader(TextIOWrapper(file, encoding='utf-8', newline=''), delimiter=';'))
 
@@ -61,7 +61,7 @@ def test_check_csv_in_archive_using_csv_module_and_diff_way_to_read():
 
 def test_check_xlsx_in_archive_using_pandas():
     file_name = 'Building_modal_analysis.xlsx'
-    with ZipFile(ZIP_FILE, 'r') as zip_file:
+    with ZipFile(ZIP_FILE) as zip_file:
         with zip_file.open(file_name) as file_:
             with pd.ExcelFile(file_) as file:
                 sheet_1 = pd.read_excel(file, sheet_name=0)
@@ -76,7 +76,7 @@ def test_check_xlsx_in_archive_using_pandas():
 
 def test_check_dat_in_archive():
     file_name = 'ds.dat'
-    with ZipFile(ZIP_FILE, 'r') as zip_file:
+    with ZipFile(ZIP_FILE) as zip_file:
         with zip_file.open(file_name) as file:
             for _ in range(5):
                 file.readline().decode('utf-8')
